@@ -1,0 +1,20 @@
+<section class="products-grid">
+    {{#each products}}
+    <article class="product-card">
+        <div class="product-image">
+            {{#if thumbnails.[0]}}
+                <img src="{{thumbnails.[0]}}" alt="{{title}}">
+            {{else}}
+                <img src="/img/default-product.jpg" alt="{{title}}">
+            {{/if}}
+        </div>
+        <div class="product-info">
+            <h3>{{title}}</h3>
+            <p class="description">{{description}}</p>
+            <p class="price">${{price}}</p>
+            <p class="category">{{category}}</p>
+            <button class="add-to-cart" data-id="{{id}}">Agregar al carrito</button>
+        </div>
+    </article>
+    {{/each}}
+</section>

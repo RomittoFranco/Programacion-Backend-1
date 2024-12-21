@@ -1,0 +1,119 @@
+[
+  {
+    "id": 1,
+    "title": "Sofá Moderno",
+    "description": "Sofá de 3 plazas en tela gris oscuro",
+    "code": "SOF001",
+    "price": 699.99,
+    "status": true,
+    "stock": 10,
+    "category": "Muebles",
+    "thumbnails": [
+      "sofa1.jpg"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Lámpara Colgante",
+    "description": "Lámpara colgante estilo industrial",
+    "code": "LAMP002",
+    "price": 89.99,
+    "status": true,
+    "stock": 20,
+    "category": "Iluminación",
+    "thumbnails": [
+      "lampara2.jpg"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Mesa de Comedor",
+    "description": "Mesa extensible de madera maciza",
+    "code": "MES002",
+    "price": 899.99,
+    "status": true,
+    "stock": 5,
+    "category": "Muebles",
+    "thumbnails": [
+      "mesa2.jpg"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Lámpara de Pie",
+    "description": "Lámpara moderna de pie con luz LED ajustable",
+    "code": "LAMP001",
+    "price": 129.99,
+    "status": true,
+    "stock": 15,
+    "category": "Iluminación",
+    "thumbnails": [
+      "lampara1.jpg"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Mesa de Centro",
+    "description": "Mesa de centro de madera y vidrio",
+    "code": "MES001",
+    "price": 299.99,
+    "status": true,
+    "stock": 8,
+    "category": "Muebles",
+    "thumbnails": [
+      "mesa1.jpg"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Espejo Decorativo",
+    "description": "Espejo de pared con marco dorado",
+    "code": "ESP001",
+    "price": 159.99,
+    "status": true,
+    "stock": 12,
+    "category": "Decoración",
+    "thumbnails": [
+      "espejo1.jpg"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Silla de Comedor",
+    "description": "Silla tapizada en terciopelo azul",
+    "code": "SILL001",
+    "price": 149.99,
+    "status": true,
+    "stock": 24,
+    "category": "Muebles",
+    "thumbnails": [
+      "silla1.jpg"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Lámpara Colgante3",
+    "description": "Lámpara colgante estilo industrial",
+    "code": "LAMP002",
+    "price": 89.99,
+    "status": true,
+    "stock": 20,
+    "category": "Iluminación",
+    "thumbnails": [
+      "lampara2.jpg"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Sofá Esquinero Moderno",
+    "description": "Sofá esquinero tapizado en tela premium con acabados de lujo",
+    "code": "SOF002",
+    "price": 1299.99,
+    "status": true,
+    "stock": 5,
+    "category": "Muebles",
+    "thumbnails": [
+      "sofa-esquinero.jpg"
+    ]
+  }
+]
