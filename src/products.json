@@ -5,7 +5,7 @@
     "description": "Sofá de 3 plazas en tela gris oscuro",
     "code": "SOF001",
     "price": 699.99,
-    "status": true,
+    "status": false,
     "stock": 10,
     "category": "Muebles",
     "thumbnails": [
@@ -18,24 +18,11 @@
     "description": "Lámpara colgante estilo industrial",
     "code": "LAMP002",
     "price": 89.99,
-    "status": true,
+    "status": false,
     "stock": 20,
     "category": "Iluminación",
     "thumbnails": [
       "lampara2.jpg"
-    ]
-  },
-  {
-    "id": 3,
-    "title": "Mesa de Comedor",
-    "description": "Mesa extensible de madera maciza",
-    "code": "MES002",
-    "price": 899.99,
-    "status": true,
-    "stock": 5,
-    "category": "Muebles",
-    "thumbnails": [
-      "mesa2.jpg"
     ]
   },
   {
@@ -115,5 +102,29 @@
     "thumbnails": [
       "sofa-esquinero.jpg"
     ]
+  },
+  {
+    "id": 10,
+    "title": "Sillón Reclinable",
+    "description": "Sillón reclinable en cuero genuino con masajeador",
+    "code": "SILL002",
+    "price": 899.99,
+    "status": false,
+    "stock": 8,
+    "category": "Muebles",
+    "thumbnails": [
+      "sillon-reclinable.jpg"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "mesa triangular",
+    "description": "taltal",
+    "code": "C0231",
+    "price": 321.22,
+    "status": true,
+    "stock": 6,
+    "category": "Muebles",
+    "thumbnails": []
   }
 ]

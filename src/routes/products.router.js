@@ -3,18 +3,16 @@ const router = express.Router();
 const ProductManager = require('../dao/managers/product.manager');
 const productManager = new ProductManager();
 
-
 router.get('/', async (req, res) => {
     try {
         const limit = req.query.limit ? parseInt(req.query.limit) : undefined;
         const products = await productManager.getProducts(limit);
-        res.render('products', { products });
+        res.json(products);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
 });
 
-// Obtener un producto por ID
 router.get('/:pid', async (req, res) => {
     try {
         const id = parseInt(req.params.pid);
@@ -25,9 +23,12 @@ router.get('/:pid', async (req, res) => {
     }
 });
 
-// Agregar un nuevo producto
 router.post('/', async (req, res) => {
     try {
+        const productExists = await productManager.getProductByCode(req.body.code);
+        if (productExists) {
+            return res.status(400).json({ error: 'Ya existe un producto con ese código' });
+        }
         const newProduct = await productManager.addProduct(req.body);
         res.status(201).json(newProduct);
     } catch (error) {
@@ -35,10 +36,15 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Actualizar un producto
 router.put('/:pid', async (req, res) => {
     try {
         const id = parseInt(req.params.pid);
+        if (req.body.code) {
+            const productExists = await productManager.getProductByCode(req.body.code);
+            if (productExists && productExists.id !== id) {
+                return res.status(400).json({ error: 'Ya existe un producto con ese código' });
+            }
+        }
         const updatedProduct = await productManager.updateProduct(id, req.body);
         res.json(updatedProduct);
     } catch (error) {
@@ -46,12 +52,26 @@ router.put('/:pid', async (req, res) => {
     }
 });
 
-// Eliminar un producto
-router.delete('/:pid', async (req, res) => {
+router.delete('/:identifier', async (req, res) => {
     try {
-        const id = parseInt(req.params.pid);
-        await productManager.deleteProduct(id);
-        res.status(204).send();
+        const identifier = req.params.identifier;
+        
+        
+        const id = parseInt(identifier);
+        
+        if (isNaN(id)) {
+            
+            const product = await productManager.getProductByCode(identifier);
+            if (!product) {
+                throw new Error('Producto no encontrado');
+            }
+            await productManager.deleteProduct(product.id);
+        } else {
+            
+            await productManager.deleteProduct(id);
+        }
+        
+        res.status(200).json({ message: 'Producto eliminado exitosamente' });
     } catch (error) {
         res.status(404).json({ error: error.message });
     }

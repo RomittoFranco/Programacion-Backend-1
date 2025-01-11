@@ -1,0 +1,76 @@
+<div class="container">
+    <h1>{{title}}</h1>
+    
+    <div class="product-form">
+        <h2>Agregar Nuevo Producto</h2>
+        <form id="productForm">
+            <input type="text" name="title" placeholder="Título" required>
+            <input type="text" name="description" placeholder="Descripción" required>
+            <input type="text" name="code" placeholder="Código" required>
+            <input type="number" name="price" placeholder="Precio" step="0.01" required>
+            <input type="number" name="stock" placeholder="Stock" required>
+            <input type="text" name="category" placeholder="Categoría" required>
+            <button type="submit">Agregar Producto</button>
+        </form>
+    </div>
+
+    <div id="productList" class="products-grid">
+        
+    </div>
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script>
+    const socket = io();
+    const productForm = document.getElementById('productForm');
+    const productList = document.getElementById('productList');
+
+    
+    socket.on('products', (products) => {
+        productList.innerHTML = products.map(product => `
+            <div class="product-card">
+                <div class="product-image">
+                    ${product.thumbnails && product.thumbnails[0] 
+                        ? `<img src="/img/${product.thumbnails[0]}" alt="${product.title}">`
+                        : '<img src="/img/placeholder.jpg" alt="placeholder">'
+                    }
+                </div>
+                <div class="product-info">
+                    <h3>${product.title}</h3>
+                    <p>${product.description}</p>
+                    <p class="price">$${product.price}</p>
+                    <p class="category">${product.category}</p>
+                    <button onclick="deleteProduct(${product.id})">Eliminar</button>
+                </div>
+            </div>
+        `).join('');
+    });
+
+    
+    socket.on('error', (error) => {
+        alert(error.error);
+    });
+
+    
+    productForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const formData = new FormData(productForm);
+        const productData = {
+            title: formData.get('title'),
+            description: formData.get('description'),
+            code: formData.get('code'),
+            price: parseFloat(formData.get('price')),
+            stock: parseInt(formData.get('stock')),
+            category: formData.get('category'),
+            status: true,
+            thumbnails: []
+        };
+        socket.emit('newProduct', productData);
+        productForm.reset();
+    });
+
+    
+    function deleteProduct(id) {
+        socket.emit('deleteProduct', id);
+    }
+</script>
