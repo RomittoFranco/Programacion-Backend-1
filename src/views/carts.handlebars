@@ -1,0 +1,27 @@
+<div class="cart-container">
+    <h1>Tu Carrito</h1>
+    {{#if cart.products.length}}
+        {{#each cart.products}}
+            <div class="cart-item">
+                <img src="{{this.product.thumbnails.[0]}}" alt="{{this.product.title}}">
+                <div class="item-details">
+                    <h3>{{this.product.title}}</h3>
+                    <p>${{this.product.price}}</p>
+                    <input type="number" value="{{this.quantity}}" min="1" 
+                           data-id="{{this.product._id}}" class="quantity-input">
+                </div>
+                <button class="remove-item" data-id="{{this.product._id}}">Eliminar</button>
+            </div>
+        {{/each}}
+        <div class="cart-summary">
+            <h3>Total: ${{total}}</h3>
+            <button class="checkout-button">Finalizar compra</button>
+            <button class="clear-cart">Vaciar carrito</button>
+        </div>
+    {{else}}
+        <div class="empty-cart">
+            <p>Tu carrito está vacío</p>
+            <a href="/products" class="continue-shopping">Seguir comprando</a>
+        </div>
+    {{/if}}
+</div>

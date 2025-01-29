@@ -1,0 +1,11 @@
+<div class="product-details">
+    <img src="{{product.thumbnails.[0]}}" alt="{{product.title}}">
+    <div class="product-info">
+        <h1>{{product.title}}</h1>
+        <p class="description">{{product.description}}</p>
+        <p class="price">${{product.price}}</p>
+        <p class="category">Categoría: {{product.category}}</p>
+        <p class="stock">Stock disponible: {{product.stock}}</p>
+        <button class="add-to-cart" data-id="{{product._id}}">Agregar al carrito</button>
+    </div>
+</div>

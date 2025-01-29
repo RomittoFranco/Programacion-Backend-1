@@ -1,20 +1,38 @@
-<section class="products-grid">
-    {{#each products}}
-    <article class="product-card">
-        <div class="product-image">
-            {{#if thumbnails.[0]}}
+<div class="products-container">
+    <div class="filters">
+        <select id="category-filter">
+            <option value="">Todas las categorías</option>
+            {{#each categories}}
+                <option value="{{this}}">{{this}}</option>
+            {{/each}}
+        </select>
+        <select id="sort">
+            <option value="">Ordenar por precio</option>
+            <option value="asc">Menor a mayor</option>
+            <option value="desc">Mayor a menor</option>
+        </select>
+    </div>
+
+    <div class="products-grid">
+        {{#each products}}
+            <div class="product-card">
                 <img src="{{thumbnails.[0]}}" alt="{{title}}">
-            {{else}}
-                <img src="/img/default-product.jpg" alt="{{title}}">
-            {{/if}}
-        </div>
-        <div class="product-info">
-            <h3>{{title}}</h3>
-            <p class="description">{{description}}</p>
-            <p class="price">${{price}}</p>
-            <p class="category">{{category}}</p>
-            <button class="add-to-cart" data-id="{{id}}">Agregar al carrito</button>
-        </div>
-    </article>
-    {{/each}}
-</section>
+                <h3>{{title}}</h3>
+                <p>{{description}}</p>
+                <p class="price">${{price}}</p>
+                <a href="/products/{{_id}}" class="details-button">Ver detalles</a>
+                <button class="add-to-cart" data-id="{{_id}}">Agregar al carrito</button>
+            </div>
+        {{/each}}
+    </div>
+
+    <div class="pagination">
+        {{#if hasPrevPage}}
+            <a href="{{prevLink}}" class="page-link">Anterior</a>
+        {{/if}}
+        <span>Página {{page}} de {{totalPages}}</span>
+        {{#if hasNextPage}}
+            <a href="{{nextLink}}" class="page-link">Siguiente</a>
+        {{/if}}
+    </div>
+</div>

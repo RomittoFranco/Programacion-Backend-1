@@ -5,75 +5,62 @@ const productManager = new ProductManager();
 
 router.get('/', async (req, res) => {
     try {
-        const limit = req.query.limit ? parseInt(req.query.limit) : undefined;
-        const products = await productManager.getProducts(limit);
-        res.json(products);
+        const { limit, page, sort, query } = req.query;
+        const options = {
+            limit,
+            page,
+            sort,
+            query: query ? { category: query } : {}
+        };
+        const result = await productManager.getProducts(options);
+        res.json(result);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        res.status(500).json({ status: 'error', error: error.message });
     }
 });
 
 router.get('/:pid', async (req, res) => {
     try {
-        const id = parseInt(req.params.pid);
-        const product = await productManager.getProductById(id);
-        res.json(product);
+        const product = await productManager.getProductById(req.params.pid);
+        if (!product) {
+            return res.status(404).json({ status: 'error', error: 'Product not found' });
+        }
+        res.json({ status: 'success', payload: product });
     } catch (error) {
-        res.status(404).json({ error: error.message });
+        res.status(500).json({ status: 'error', error: error.message });
     }
 });
 
 router.post('/', async (req, res) => {
     try {
-        const productExists = await productManager.getProductByCode(req.body.code);
-        if (productExists) {
-            return res.status(400).json({ error: 'Ya existe un producto con ese código' });
-        }
         const newProduct = await productManager.addProduct(req.body);
-        res.status(201).json(newProduct);
+        res.status(201).json({ status: 'success', payload: newProduct });
     } catch (error) {
-        res.status(400).json({ error: error.message });
+        res.status(400).json({ status: 'error', error: error.message });
     }
 });
 
 router.put('/:pid', async (req, res) => {
     try {
-        const id = parseInt(req.params.pid);
-        if (req.body.code) {
-            const productExists = await productManager.getProductByCode(req.body.code);
-            if (productExists && productExists.id !== id) {
-                return res.status(400).json({ error: 'Ya existe un producto con ese código' });
-            }
+        const updatedProduct = await productManager.updateProduct(req.params.pid, req.body);
+        if (!updatedProduct) {
+            return res.status(404).json({ status: 'error', error: 'Product not found' });
         }
-        const updatedProduct = await productManager.updateProduct(id, req.body);
-        res.json(updatedProduct);
+        res.json({ status: 'success', payload: updatedProduct });
     } catch (error) {
-        res.status(404).json({ error: error.message });
+        res.status(400).json({ status: 'error', error: error.message });
     }
 });
 
-router.delete('/:identifier', async (req, res) => {
+router.delete('/:pid', async (req, res) => {
     try {
-        const identifier = req.params.identifier;
-        
-        
-        const id = parseInt(identifier);
-        
-        if (isNaN(id)) {
-            
-            const product = await productManager.getProductByCode(identifier);
-            if (!product) {
-                throw new Error('Producto no encontrado');
-            }
-            await productManager.deleteProduct(product.id);
-        } else {
-            
-            await productManager.deleteProduct(id);
+        const result = await productManager.deleteProduct(req.params.pid);
+        if (!result) {
+            return res.status(404).json({ status: 'error', error: 'Product not found' });
         }
-        
-        res.status(200).json({ message: 'Producto eliminado exitosamente' });
+        res.json({ status: 'success', message: 'Product deleted successfully' });
     } catch (error) {
-        res.status(404).json({ error: error.message });
+        res.status(400).json({ status: 'error', error: error.message });
     }
 });
 
