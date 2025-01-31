@@ -3,7 +3,7 @@ const router = express.Router();
 const CartManager = require('../dao/managers/cart.manager');
 const cartManager = new CartManager();
 
-// Create new cart
+
 router.post('/', async (req, res) => {
     try {
         const newCart = await cartManager.createCart();
@@ -13,7 +13,7 @@ router.post('/', async (req, res) => {
     }
 });
 
-// Get cart by ID
+
 router.get('/:cid', async (req, res) => {
     try {
         const cart = await cartManager.getCartById(req.params.cid);
@@ -26,7 +26,7 @@ router.get('/:cid', async (req, res) => {
     }
 });
 
-// Add product to cart
+
 router.post('/:cid/product/:pid', async (req, res) => {
     try {
         const cart = await cartManager.addProductToCart(req.params.cid, req.params.pid);
@@ -36,7 +36,7 @@ router.post('/:cid/product/:pid', async (req, res) => {
     }
 });
 
-// Delete product from cart
+
 router.delete('/:cid/products/:pid', async (req, res) => {
     try {
         const result = await cartManager.removeProductFromCart(req.params.cid, req.params.pid);
@@ -46,7 +46,7 @@ router.delete('/:cid/products/:pid', async (req, res) => {
     }
 });
 
-// Update entire cart with products array
+
 router.put('/:cid', async (req, res) => {
     try {
         const result = await cartManager.updateCart(req.params.cid, req.body.products);
@@ -56,7 +56,7 @@ router.put('/:cid', async (req, res) => {
     }
 });
 
-// Update product quantity
+
 router.put('/:cid/products/:pid', async (req, res) => {
     try {
         const result = await cartManager.updateProductQuantity(
@@ -70,7 +70,7 @@ router.put('/:cid/products/:pid', async (req, res) => {
     }
 });
 
-// Clear cart
+
 router.delete('/:cid', async (req, res) => {
     try {
         const result = await cartManager.clearCart(req.params.cid);

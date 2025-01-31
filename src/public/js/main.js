@@ -1,16 +1,16 @@
 const socket = io();
 
-// Escuchar actualizaciones de productos
+
 socket.on('products', (products) => {
     updateProductList(products);
 });
 
-// Escuchar errores
+
 socket.on('error', (error) => {
     alert('Error: ' + error.message);
 });
 
-// Función para actualizar la lista de productos
+
 function updateProductList(products) {
     const productList = document.getElementById('product-list');
     if (!productList) return;
@@ -27,7 +27,7 @@ function updateProductList(products) {
     `).join('');
 }
 
-// Función para enviar nuevo producto
+
 function submitProduct(event) {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -45,7 +45,7 @@ function submitProduct(event) {
     event.target.reset();
 }
 
-// Función para eliminar producto
+
 function deleteProduct(productId) {
     socket.emit('deleteProduct', productId);
 }

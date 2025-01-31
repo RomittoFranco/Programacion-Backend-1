@@ -3,7 +3,7 @@ const router = express.Router();
 const ProductManager = require('../dao/managers/product.manager');
 const productManager = new ProductManager();
 
-// Ruta para home
+
 router.get('/', async (req, res) => {
     try {
         const options = { limit: 10, page: 1 };
@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
     }
 });
 
-// Ruta para productos en tiempo real
+
 router.get('/realtimeproducts', async (req, res) => {
     try {
         const options = { limit: 10, page: 1 };
